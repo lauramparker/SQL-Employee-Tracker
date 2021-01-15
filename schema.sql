@@ -26,4 +26,7 @@ CREATE TABLE department (
     name VARCHAR(30)
 );
 
+SELECT * FROM employee;
+SELECT * FROM role;
+SELECT * FROM department;
   
