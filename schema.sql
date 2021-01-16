@@ -12,12 +12,13 @@ CREATE TABLE employee (
     manager_id INT NOT NULL
 );
 
+
 CREATE TABLE role (
     id INT NOT NULL,
     PRIMARY KEY(id),
     title VARCHAR(30) NOT NULL,
     salary DECIMAL(8,2) NOT NULL,
-    deapartment_id INT NOT NULL
+    department_id INT NOT NULL
 );
 
 CREATE TABLE department (
