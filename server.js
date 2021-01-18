@@ -72,48 +72,52 @@ function selectAction() {
         break;
 
     }; //end SWITCH
+    }); //end .then
 
-}); //end selectAction function  ?????
+}; //end selectAction function
 
 
 //Function for VIEWING ALL information in db
-async function viewAll() {
-    var query = "SELECT * FROM employee ORDER BY last_name ASC";
+function viewAll() {
+    const query = "SELECT * FROM employee ORDER BY last_name ASC";
 
   connection.query(query, function(err, res) {
     if (err) throw err;
-    else console.table(res)
-    }),
-    await selectAction();
-  };
-
-
-//VIEW by department //Utilize LEFT Join??? in case there are employees not assigned to a department
-async function viewEmpDept() {
-    var query = "SELECT employee.id, employee.first_name, employee.last_name, employee.role_id, role.id, role.department_id, department.id, department.name";
-    query += "FROM employee Inner JOIN department ON (employee.role_id = role.id AND role_department.id = department.id)"
+    else 
+        console.table(res);
+        selectAction();
+    });
     
-  connection.query(query, function(err, res) {
-    if (err) throw err;
-    else console.table(res)
-    }),
-    await selectAction();
-  };
+ };
 
+
+//VIEW by department
+function viewEmpDept() {
+    const query = "SELECT employee.first_name, employee.last_name, employee.role_id, role.id, role.department_id FROM employee INNER JOIN role ON (employee.role_id = role.id)";
+
+    
+  connection.query(query, function (err, res) {
+    if (err) throw err;
+    else
+        console.table(res);    
+        selectAction();
+      });
+     
+};
 
 
 //VIEW by manager 
-async function viewEmpMng() {
-    var query = "SELECT employee.id, employee.first_name, employee.last_name, employee.role_id, employee.manager_id, role.id, role.title";
-    query += "FROM employee INNER JOIN role ON (employee.role_id = role.id) ORDER BY employee.manager_id"
-    // !! Need to identify WHO the manager is for each group.
+function viewEmpMng() {
+    const query = "SELECT employee.id, employee.first_name, employee.last_name, employee.role_id, employee.manager_id, role.id, role.title FROM employee INNER JOIN role ON (employee.role_id = role.id) ORDER BY employee.manager_id ASC";
+  
   connection.query(query, function(err, res) {
     if (err) throw err;
-    else console.table(res)
-    }),
-    await selectAction();
-  };
-
+    else 
+        console.table(res)
+        selectAction();
+      });
+    
+};
 
 
 
@@ -171,5 +175,6 @@ async function viewEmpMng() {
 
 
 
- //   connection.end();
-};
+
+
+
