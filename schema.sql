@@ -8,8 +8,10 @@ CREATE TABLE employee (
     PRIMARY KEY(id),
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NOT NULL,
+    fullname VARCHAR(61) GENERATED ALWAYS AS (CONCAT(first_name,' ',last_name)) NOT NULL,
     role_id INT NOT NULL,
-    manager_id INT NOT NULL
+    manager_id INT,
+    manager_name VARCHAR(61)
 );
 
 

@@ -93,9 +93,9 @@ function viewAll() {
 
 //VIEW by department
 function viewEmpDept() {
-    const query = "SELECT employee.first_name, employee.last_name, employee.role_id, role.id, role.department_id FROM employee INNER JOIN role ON (employee.role_id = role.id)";
+    var query = "SELECT employee.first_name, employee.last_name, role.title, role.salary, department.name "
+    query += "FROM employee INNER JOIN role ON (employee.role_id = role.id) INNER JOIN department on (role.department_id = department.id)";
 
-    
   connection.query(query, function (err, res) {
     if (err) throw err;
     else
@@ -108,8 +108,10 @@ function viewEmpDept() {
 
 //VIEW by manager 
 function viewEmpMng() {
-    const query = "SELECT employee.id, employee.first_name, employee.last_name, employee.role_id, employee.manager_id, role.id, role.title FROM employee INNER JOIN role ON (employee.role_id = role.id) ORDER BY employee.manager_id ASC";
-  
+    var query = "SELECT employee.first_name, employee.last_name, role.title, role.salary, department.name, employee.manager_id "
+    query += "FROM employee INNER JOIN role ON (employee.role_id = role.id) INNER JOIN department on (role.department_id = department.id) "
+    query += "";//
+
   connection.query(query, function(err, res) {
     if (err) throw err;
     else 
