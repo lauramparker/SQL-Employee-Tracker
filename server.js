@@ -186,7 +186,7 @@ function addDept() {
     ])
     .then(function(answer){
 
-        var query = `INSERT INTO department (name) VALUES ('${answer.dept_name}')`;
+        var query = `INSERT INTO department (id, name) VALUES (1200,'${answer.dept_name}')`;
 
         connection.query(query, function(err, res) {
             if (err) throw err;
@@ -211,12 +211,12 @@ function addRole() {
     ])
     .then(function(answer){
 
-        var query = `INSERT INTO role (name) VALUES ('${answer.role_title}')`;
+        var query = `INSERT INTO role (id, title) VALUES (50, '${answer.role_title}')`;
 
         connection.query(query, function(err, res) {
             if (err) throw err;
             else 
-                console.log('Department has been added!');
+                console.log('New Role has been added!');
                 selectAction();
               });
     });
@@ -261,7 +261,7 @@ function updateEmpRole() {
             connection.query(query, function(err, res) {
                 if (err) throw err;
                 else 
-                    console.log('Department has been added!');
+                    console.log('Employee Role has been added!');
                     selectAction();
                   });
         });
@@ -301,7 +301,7 @@ function updateEmpMng() {
               connection.query(query, function(err, res) {
                   if (err) throw err;
                   else 
-                      console.log('Department has been added!');
+                      console.log('Manager has been added!');
                       selectAction();
                     });
           });
