@@ -32,11 +32,11 @@ function selectAction() {
             "VIEW all employees",
             "VIEW all employees by department",
             "VIEW all employees by manager",
-            "ADD a new employee",
+            "ADD a NEW employee",
+            "ADD a NEW department",
+            "ADD a NEW job title / role",
             "UPDATE an employee's manager",
             "UPDATE an employee's role",
-            "DELETE an employee",
-            "DELELE all the employees in a department"
         ]
         })
 
@@ -55,8 +55,16 @@ function selectAction() {
         viewEmpMng();
         break;
 
-      case "ADD a new employee":
+      case "ADD a NEW employee":
         addEmp();
+        break;
+
+      case "ADD a NEW department":
+        addDept();
+        break;
+
+      case "ADD a NEW job title / role":
+        addRole();
         break;
 
       case "UPDATE an employee's role":
@@ -65,10 +73,6 @@ function selectAction() {
 
       case "UPDATE an employee's manager":
         updateEmpMng();
-        break;
-
-      case "DELETE all the employees in a department":
-        deleteAll();
         break;
 
     }; //end SWITCH
@@ -108,9 +112,13 @@ function viewEmpDept() {
 
 //VIEW by manager 
 function viewEmpMng() {
-    var query = "SELECT employee.first_name, employee.last_name, role.title, role.salary, department.name, employee.manager_id "
+    var query = "SELECT employee.first_name, employee.last_name, role.title, role.salary, department.name, employee.manager_id, employee.manager_name "
     query += "FROM employee INNER JOIN role ON (employee.role_id = role.id) INNER JOIN department on (role.department_id = department.id) "
-    query += "";//
+    query += "ORDER BY employee.manager_id";
+
+            // UPDATE employee SET employee.manager_name = "Dan Danielson" WHERE employee.manager_id = 11;
+            // UPDATE employee SET employee.manager_name = "Henri Hamilton" WHERE employee.manager_id = 21;
+            // UPDATE employee SET employee.manager_name = "Lonny Littleton" WHERE employee.manager_id = 31;
 
   connection.query(query, function(err, res) {
     if (err) throw err;
@@ -123,56 +131,182 @@ function viewEmpMng() {
 
 
 
-//Function for ADDING information to db
-// function addEmp() {
-//     let deptChoices = "SELECT"
-//     let roleChoices = "SELECT";
+//Function for ADDING Employee information to db
+function addEmp() {
 
-//     inquirer
-//     .prompt(
-//       {
-//         name: 'first_name',
-//         type: 'input',
-//         message: 'Enter employee first name:',
-//       },
-//       {
-//         name: 'last_name',
-//         type: 'input',
-//         message: 'Enter employee last name:',
-//       },
-//       {
-//         name: 'department',
-//         type: 'list',
-//         message: 'What department is this employee in?',
-//         choices: ['Sales',  'Engineering', 'Finance', 'Legal']
-//       },
-  
-//       {
-//         name: 'role_title',
-//         type: 'list',
-//         message: 'What role do they have?',
-//         choices: []
-//       },
+    inquirer
+    .prompt([
+      {
+        name: 'first_name',
+        type: 'input',
+        message: 'Enter employee first name:',
+      },
+      {
+        name: 'last_name',
+        type: 'input',
+        message: 'Enter employee last name:',
+      },
+      {
+        name: 'role',
+        type: 'list',
+        message: 'What job does this employee have?',
+        choices: ['Sales Support', 'Account Manager', 'Sales Director',
+        'Processor', 'Contracts Specialist', 'Finance Director',
+        'Sys Admin', 'Developer', 'DBA', 'IT Director']
+      },
+    ])
 
-//       })
-//     .then(function(answer) {
-//       var query = 
+    .then(function(answer) {
+        
+        var query = `INSERT INTO employee (first_name, last_name, role_id) VALUES ('${answer.first_name}', '${answer.last_name}', (SELECT id FROM role WHERE role.title = '${answer.role}'))`;
 
-// };
+        connection.query(query, function(err, res) {
+            if (err) throw err;
+            else 
+                console.log('Employee has been added!');
+                selectAction();
+              });
+
+    }); //end .then answer query
+
+};//end AddEmp function
 
 
-// //Function for UPDATING information to db
+
+//Function for ADDING Department information to db
+function addDept() {
+
+    inquirer
+    .prompt([
+      {
+        name: 'dept_name',
+        type: 'input',
+        message: 'Enter NEW department name:',
+      },
+    ])
+    .then(function(answer){
+
+        var query = `INSERT INTO department (name) VALUES ('${answer.dept_name}')`;
+
+        connection.query(query, function(err, res) {
+            if (err) throw err;
+            else 
+                console.log('Department has been added!');
+                selectAction();
+              });
+    });
+};
+
+
+//Function for ADDING new job / role information to db
+function addRole() {
+
+    inquirer
+    .prompt([
+      {
+        name: 'role_name',
+        type: 'input',
+        message: 'Enter NEW job title / role name:',
+      },
+    ])
+    .then(function(answer){
+
+        var query = `INSERT INTO role (name) VALUES ('${answer.role_title}')`;
+
+        connection.query(query, function(err, res) {
+            if (err) throw err;
+            else 
+                console.log('Department has been added!');
+                selectAction();
+              });
+    });
+};
+
+
+
+//Function for UPDATING employees role in db
 // function updateAll() {
 
+function updateEmpRole() {
 
-// };
+    var query = 'SELECT * FROM employee WHERE fullname = ?';
+
+    var employeeList = [];
+
+    connection.query(query, function(err, res) {
+        if (err) throw err;
+        else 
+            employeeList = res;
+          });
+
+    inquirer
+    .prompt([
+      {
+        name: 'employee',
+        type: 'list',
+        message: "Which employee's role needs updating?",
+        choices: employeeList
+      },
+      {
+        name: 'new_roleID',
+        type: 'input',
+        message: "Enter their NEW role id:",
+      },
+
+    ])
+        .then(function(answer){
+    
+            var query = `UPDATE employee SET role_id = ('${answer.newroleID}') WHERE employee.fullname = '${answer.employee}'`;
+    
+            connection.query(query, function(err, res) {
+                if (err) throw err;
+                else 
+                    console.log('Department has been added!');
+                    selectAction();
+                  });
+        });
+};
 
 
-// //Function for DELETING information to db
-// function viewAll() {
+function updateEmpMng() {
 
+      var query = 'SELECT * FROM employee WHERE fullname = ?';
+  
+      var employeeList = [];
+  
+      connection.query(query, function(err, res) {
+          if (err) throw err;
+          else 
+              employeeList = res;
+            });
+  
+      inquirer
+      .prompt([
+        {
+          name: 'employee',
+          type: 'list',
+          message: "Which employee needs an updated manager?",
+          choices: employeeList
+        },
+        {
+            name: 'new_mng',
+            type: 'input',
+            message: "Who is the new manager?",
+          },
+      ])
+          .then(function(answer){
+      
+              var query = `INSERT INTO employee (manager_name) VALUES ('${answer.new_mng}') WHERE employee.fullname = '${answer.employee}'`;
+      
+              connection.query(query, function(err, res) {
+                  if (err) throw err;
+                  else 
+                      console.log('Department has been added!');
+                      selectAction();
+                    });
+          });
+  };
 
-// };
 
 
 

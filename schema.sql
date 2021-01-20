@@ -20,13 +20,14 @@ CREATE TABLE role (
     PRIMARY KEY(id),
     title VARCHAR(30) NOT NULL,
     salary DECIMAL(8,2) NOT NULL,
-    department_id INT NOT NULL
+    department_id INT NOT NULL,
 );
 
 CREATE TABLE department (
     id INT NOT NULL,
     PRIMARY KEY(id),
-    name VARCHAR(30)
+    name VARCHAR(30),
+ 
 );
 
 SELECT * FROM employee;
