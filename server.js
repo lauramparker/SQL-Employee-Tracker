@@ -149,16 +149,22 @@ function addEmp() {
       {
         name: 'role',
         type: 'list',
-        message: 'What job does this employee have?',
+        message: 'What role id does this employee have?',
         choices: ['Sales Support', 'Account Manager', 'Sales Director',
         'Processor', 'Contracts Specialist', 'Finance Director',
         'Sys Admin', 'Developer', 'DBA', 'IT Director']
       },
+      { name: 'manager',
+      type: 'list',
+      message: 'Which manager does this employee report to?',
+      choices: ['Dan Danielson', 'Henri Hamilton', 'Lonny Littleton',
+      'null']
+      }
     ])
 
     .then(function(answer) {
         
-        var query = `INSERT INTO employee (first_name, last_name, role_id) VALUES ('${answer.first_name}', '${answer.last_name}', (SELECT id FROM role WHERE role.title = '${answer.role}'))`;
+        var query = `INSERT INTO employee (first_name, last_name, role_id, manager_name) VALUES ('${answer.first_name}', '${answer.last_name}', (SELECT id FROM role WHERE role.title = '${answer.role}'), '${answer.manager}')`;
 
         connection.query(query, function(err, res) {
             if (err) throw err;

@@ -38,40 +38,40 @@ INSERT INTO role (title, salary, id, department_id)
 VALUES ('IT Director', 120000, 304, 300);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id) 
-VALUES ('Alex', 'Anderson', 101, 11);
+VALUES ('Alex', 'Anderson', 101, 103);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id) 
-VALUES ('Bob', 'Barker', 102, 11);
+VALUES ('Bob', 'Barker', 102, 103);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id) 
-VALUES ('Cole', 'Collins', 102, 11);
+VALUES ('Cole', 'Collins', 102, 103);
+
+INSERT INTO employee (first_name, last_name, role_id) 
+VALUES ('Dan', 'Danielson', 103);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id) 
-VALUES ('Dan', 'Danielson', 103, 15);
+VALUES ('Emily', 'Everett', 201, 203);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id) 
-VALUES ('Emily', 'Everett', 201, 21);
+VALUES ('Fred', 'Franklin', 202, 203);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id) 
-VALUES ('Fred', 'Franklin', 202, 21);
+VALUES ('George', 'Gimmelson', 202, 203);
+
+INSERT INTO employee (first_name, last_name, role_id) 
+VALUES ('Henri', 'Hamilton', 203);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id) 
-VALUES ('George', 'Gimmelson', 202, 21);
+VALUES ('Isla', 'Iverson', 301, 304);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id) 
-VALUES ('Henri', 'Hamilton', 203, 25);
+VALUES ('Jenny', 'Johnson', 302, 304);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id) 
-VALUES ('Isla', 'Iverson', 301, 31);
+VALUES ('Kenzie', 'King', 303, 304);
 
-INSERT INTO employee (first_name, last_name, role_id, manager_id) 
-VALUES ('Jenny', 'Johnson', 302, 31);
-
-INSERT INTO employee (first_name, last_name, role_id, manager_id) 
-VALUES ('Kenzie', 'King', 303, 31);
-
-INSERT INTO employee (first_name, last_name, role_id, manager_id) 
-VALUES ('Lonny', 'Littleton', 304, 35);
+INSERT INTO employee (first_name, last_name, role_id) 
+VALUES ('Lonny', 'Littleton', 304);
 
 
 
