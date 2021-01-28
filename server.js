@@ -164,6 +164,7 @@ function addEmp() {
             if (err) throw err;
             else 
                 console.log('Employee has been added!');
+                viewAll();
                 selectAction();
               });
 
@@ -183,6 +184,11 @@ function addDept() {
         type: 'input',
         message: 'Enter NEW department name:',
       },
+      {
+        name: 'dept_name',
+        type: 'input',
+        message: 'Enter NEW department id:',
+      },
     ])
     .then(function(answer){
 
@@ -192,6 +198,7 @@ function addDept() {
             if (err) throw err;
             else 
                 console.log('Department has been added!');
+                viewEmpDept();
                 selectAction();
               });
     });
