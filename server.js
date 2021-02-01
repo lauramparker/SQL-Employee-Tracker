@@ -254,23 +254,22 @@ function addRole() {
   var roleList = [];
 
   connection.query(query, function(err, res) {
-      if (err) throw err;
-      else 
-          roleList = res;
+    if (err) throw err;
+    else 
+        roleList = res;
         });
 
-        var deptNames = [];
-        var deptArray = [];
+  var deptNames = [];
+  var deptArray = [];
+  var query = "SELECT department.name FROM department";
       
-        var query = "SELECT department.name FROM department";
-      
-          connection.query(query, function(err, res) {
-              if (err) throw err;
-              else 
-                  for (let i = 0; i < res.length; i++) {
-                    deptNames.push(JSON.parse(JSON.stringify(res[i].name)));
-                    deptArray = deptNames;
-                  }; 
+  connection.query(query, function(err, res) {
+    if (err) throw err;
+    else 
+        for (let i = 0; i < res.length; i++) {
+          deptNames.push(JSON.parse(JSON.stringify(res[i].name)));
+          deptArray = deptNames;
+        }; 
 
     inquirer
     .prompt([
@@ -296,19 +295,17 @@ function addRole() {
         var query = `INSERT INTO role (id, title, salary, department_id) VALUES ('${newRoleID}', '${answer.role_title}', '${answer.role_salary}', (SELECT id FROM department WHERE department.name = '${answer.role_dept}'))`;
       
         connection.query(query, function(err, res) {
-            if (err) throw err;
-            else 
+          if (err) throw err;
+          else 
                 console.log('New Role has been added!');
                 selectAction();
-              });
+            });
     });
   });
 };
 
 
-
 //Function for UPDATING employees role in db
-
 function updateEmpRole() {
 
   var employeeNames = [];
