@@ -90,7 +90,7 @@ function selectAction() {
 
 //Function for VIEWING ALL employees
 function viewAll() {
-  const query = "SELECT employee.first_name, employee.last_name, role.id, employee.manager_id FROM employee ORDER BY last_name ASC";
+  const query = "SELECT employee.first_name, employee.last_name, employee.role_id, employee.manager_id FROM employee ORDER BY last_name ASC";
 
   connection.query(query, function(err, res) {
     if (err) throw err;
