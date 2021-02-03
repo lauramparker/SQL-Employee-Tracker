@@ -144,7 +144,7 @@ function viewEmpDept() {
 
 //VIEW by manager 
 function viewEmpMng() {
-  var query = "SELECT employee.first_name, employee.last_name, role.title, role.salary, department.name, employee.manager_id, "
+  var query = "SELECT employee.first_name, employee.last_name, role.title, role.salary, department.name, employee.manager_id "
   query += "FROM employee INNER JOIN role ON (employee.role_id = role.id) INNER JOIN department on (role.department_id = department.id) "
   query += "ORDER BY employee.manager_id";
 
