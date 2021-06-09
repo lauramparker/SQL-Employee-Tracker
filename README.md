@@ -1,6 +1,6 @@
-# Employee-Tracker
+# SQL-Employee-Tracker
 
-<h3><u>Title: Employee-Tracker<u></h3>
+<h3><u>Title: SQL-Employee-Tracker<u></h3>
 
 <h3>Description:</h3> 
     This project delivers an application that uses a Command Line Interface to view and manage data relevant to an organization's employees.  The intent of the application is to simplify the process for viewing and updating a directory of employee information.  The application leverages an employees database designed by a schema.sql file with initial seed data.  It uses the command line functions (via node.js) to prompt the user for input fields and presents options for viewing and updating the data contained in the database. When the application runs, the user is prompted to choose from the follopwing options:
